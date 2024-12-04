@@ -55,6 +55,45 @@ fun complexFunction(someArg: String) {
     innerFunction(45)
 }
 
+fun greet(name: String, age: Int) =
+    "Hi, my name is $name and I am $age years old"
+
+fun factorial(n: Int): Long {
+    fun tailrec(n: Int, acc: Long = 1L): Long =
+        when {
+            n <= 0 -> acc
+            else -> tailrec(n - 1, acc * n.toLong())
+        }
+
+    return tailrec(n)
+}
+
+
+fun fibonacci(n: Int): Long {
+    fun tailrec(n: Int, a: Long = 0, b: Long = 1): Long =
+        when (n){
+            0 -> a
+            1 -> b
+            else -> tailrec(n=(n - 1), a=b, b=(a + b))
+        }
+
+    return tailrec(n, 0, 1)
+}
+
+fun isPrime(n: Int): Boolean {
+    fun tailrec(n: Int, current: Int): Boolean =
+        when {
+            current == 1 -> true
+            n < 2 -> false
+            n % current == 0 -> false
+            else -> tailrec(n, current -1)
+        }
+
+    return tailrec(n, n - 1)
+}
+
+
+
 fun main() {
     simpleFunction("Kotlin")
     simpleFunction("Scala")
@@ -70,4 +109,31 @@ fun main() {
     val kotlinx3 = concatenateString(aString = "Kotlin", count = 3)
 
     complexFunction(someArg = kotlinx3)
+
+    println("greet")
+    println(greet("Severino", 1))
+
+    println("factorial")
+    println(factorial(0))
+    println(factorial(10))
+    println(factorial(-1))
+
+    println("fibonacci")
+    println(fibonacci(0))
+    println(fibonacci(1))
+    println(fibonacci(2))
+    println(fibonacci(5))
+    println(fibonacci(9))
+
+    println("isPrime")
+    println(isPrime(-1)) // false
+    println(isPrime(0))  // false
+    println(isPrime(1))  // false
+    println(isPrime(2))  // true
+    println(isPrime(3))  // true
+    println(isPrime(4))  // false
+    println(isPrime(5))  // true
+    println(isPrime(97))   // true
+    println(isPrime(99))   // false
+    println(isPrime(2003))   // true
 }
